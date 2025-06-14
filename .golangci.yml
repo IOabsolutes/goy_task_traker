@@ -1,0 +1,14 @@
+linters:
+  enable:
+    - govet
+    - staticcheck
+    - errcheck
+    - gosec
+    - unused
+    - deadcode
+timeout: 5m
+issues:
+  exclude-rules:
+    - path: ".*\\.ya?ml$"
+      linters:
+        - misspell
