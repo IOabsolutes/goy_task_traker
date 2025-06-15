@@ -1,20 +1,23 @@
 package main
 
 import (
+	"log"
+	"todo_api/pkg/handlers"
 	"todo_api/server"
-
-	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	r := gin.Default()
-
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
-
-	srv := new(server.Server)
-	srv.Run("8080", r)
+	// Initialize handler
+	handler := handlers.NewHandler()
+	
+	// Initialize routes
+	router := handler.InitRoutes()
+	
+	// Create and start server
+	srv := server.New()
+	log.Println("Starting server on port 8080...")
+	
+	if err := srv.Run("8080", router); err != nil {
+		log.Fatal("Server failed to start:", err)
+	}
 }

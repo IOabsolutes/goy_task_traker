@@ -10,6 +10,11 @@ type Server struct {
 	httpServer *http.Server
 }
 
+// New creates a new Server instance
+func New() *Server {
+	return &Server{}
+}
+
 func (s *Server) Run(port string, handler http.Handler) error {
 	s.httpServer = &http.Server{
 		Addr:           ":" + port,

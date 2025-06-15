@@ -1,0 +1,81 @@
+version: "3.9"
+
+services:
+  # Go API Application
+  app:
+    build: .
+    image: task-tracker-api:latest
+    container_name: task-tracker-app
+  # ports:
+  #   - "8080:8080"
+  # environment:
+  #   - DB_HOST=db
+  #   - DB_PORT=5432
+  #   - REDIS_HOST=redis
+  #   - REDIS_PORT=6379
+  # depends_on:
+  #   - db
+  #   - redis
+  # networks:
+  #   - task-tracker-network
+  deploy:
+    resources:
+      limits:
+        memory: 512M
+      reservations:
+        memory: 256M
+
+  # PostgreSQL Database
+  db:
+    image: postgres:15-alpine
+    container_name: task-tracker-db
+    # environment:
+    #   - POSTGRES_DB=tasktracker
+    #   - POSTGRES_USER=postgres
+    #   - POSTGRES_PASSWORD=password
+    # ports:
+    #   - "5432:5432"
+    # volumes:
+    #   - postgres_data:/var/lib/postgresql/data
+    #   - ./migrations:/docker-entrypoint-initdb.d
+    # networks:
+    #   - task-tracker-network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+#    environment:
+#      - POSTGRES_PASSWORD_FILE=/run/secrets/db_password
+#    secrets:
+#      - db_password
+
+  # Redis Cache
+  redis:
+  # image: redis:7-alpine
+  # container_name: task-tracker-redis
+  # ports:
+  #   - "6379:6379"
+  # volumes:
+  #   - redis_data:/data
+  # networks:
+  #   - task-tracker-network
+
+  # Optional: Database Admin Tool
+  adminer:
+  # image: adminer:latest
+  # container_name: task-tracker-adminer
+  # ports:
+  #   - "8081:8080"
+  # depends_on:
+  #   - db
+  # networks:
+  #   - task-tracker-network
+
+# volumes:
+#   postgres_data:
+#   redis_data:
+
+# networks:
+#   task-tracker-network:
+#     driver: bridge
