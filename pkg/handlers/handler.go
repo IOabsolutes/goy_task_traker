@@ -2,19 +2,21 @@ package handlers
 
 import (
 	"github.com/gin-gonic/gin"
+	"todo_api/pkg/services"
 )
 
 // Handler contains all the handler dependencies
 type Handler struct {
+	services *services.Service
 	// Add your services/repositories here when you create them
 	// taskService    services.TaskService
 	// userService    services.UserService
 }
 
 // NewHandler creates a new handler instance
-func NewHandler() *Handler {
+func NewHandler(services *services.Service) *Handler {
 	return &Handler{
-		// Initialize your services here
+		services: services,
 	}
 }
 

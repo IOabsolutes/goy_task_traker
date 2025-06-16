@@ -1,0 +1,31 @@
+# Task Tracker API Configuration
+
+app:
+  name: "Task Tracker API"
+  version: "1.0.0"
+  environment: "development"  # development, staging, production
+  log_level: "debug"         # debug, info, warn, error
+
+server:
+  host: "localhost"
+  port: "8080"
+  read_timeout: 10   # seconds
+  write_timeout: 10  # seconds
+
+database:
+  host: "localhost"
+  port: 5432
+  username: "postgres"
+  password: "password"
+  dbname: "tasktracker"
+  sslmode: "disable"
+
+redis:
+  host: "localhost"
+  port: 6379
+  password: ""
+  db: 0
+
+jwt:
+  secret_key: "your-super-secret-jwt-key-change-this-in-production"
+  expiration_time: 24  # hours

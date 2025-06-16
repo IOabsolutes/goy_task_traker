@@ -1,29 +1,28 @@
 package handlers
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 // initUserRoutes initializes all user-related routes
 func (h *Handler) initUserRoutes(api *gin.RouterGroup) {
 	users := api.Group("/users")
 	{
-		users.GET("", h.getAllUsers)           // GET /api/v1/users
-		users.GET("/:id", h.getUserByID)       // GET /api/v1/users/:id
-		users.POST("", h.createUser)           // POST /api/v1/users
-		users.PUT("/:id", h.updateUser)        // PUT /api/v1/users/:id
-		users.DELETE("/:id", h.deleteUser)     // DELETE /api/v1/users/:id
+		users.GET("", h.getAllUsers)                               // GET /api/v1/users
+		users.GET("/:id", h.getUserByID)                           // GET /api/v1/users/:id
+		users.POST("", h.createUser)                               // POST /api/v1/users
+		users.PUT("/:id", h.updateUser)                            // PUT /api/v1/users/:id
+		users.DELETE("/:id", h.deleteUser)                         // DELETE /api/v1/users/:id
 		users.PATCH("/:id/subscription", h.updateUserSubscription) // PATCH /api/v1/users/:id/subscription
 	}
-	
+
 	// Authentication routes
 	auth := api.Group("/auth")
 	{
-		auth.POST("/register", h.registerUser)  // POST /api/v1/auth/register
-		auth.POST("/login", h.loginUser)        // POST /api/v1/auth/login
-		auth.POST("/logout", h.logoutUser)      // POST /api/v1/auth/logout
+		auth.POST("/register", h.registerUser) // POST /api/v1/auth/register
+		auth.POST("/login", h.loginUser)       // POST /api/v1/auth/login
+		auth.POST("/logout", h.logoutUser)     // POST /api/v1/auth/logout
 	}
 }
 
@@ -39,7 +38,7 @@ func (h *Handler) getAllUsers(c *gin.Context) {
 // getUserByID handles GET /api/v1/users/:id
 func (h *Handler) getUserByID(c *gin.Context) {
 	userID := c.Param("id")
-	
+
 	// TODO: Implement get user by ID logic
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Get user by ID",
@@ -58,7 +57,7 @@ func (h *Handler) createUser(c *gin.Context) {
 // updateUser handles PUT /api/v1/users/:id
 func (h *Handler) updateUser(c *gin.Context) {
 	userID := c.Param("id")
-	
+
 	// TODO: Implement update user logic
 	c.JSON(http.StatusOK, gin.H{
 		"message": "User updated successfully",
@@ -69,7 +68,7 @@ func (h *Handler) updateUser(c *gin.Context) {
 // deleteUser handles DELETE /api/v1/users/:id
 func (h *Handler) deleteUser(c *gin.Context) {
 	userID := c.Param("id")
-	
+
 	// TODO: Implement delete user logic
 	c.JSON(http.StatusOK, gin.H{
 		"message": "User deleted successfully",
@@ -80,7 +79,7 @@ func (h *Handler) deleteUser(c *gin.Context) {
 // updateUserSubscription handles PATCH /api/v1/users/:id/subscription
 func (h *Handler) updateUserSubscription(c *gin.Context) {
 	userID := c.Param("id")
-	
+
 	// TODO: Implement update user subscription logic
 	c.JSON(http.StatusOK, gin.H{
 		"message": "User subscription updated successfully",

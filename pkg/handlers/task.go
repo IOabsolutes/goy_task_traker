@@ -1,28 +1,27 @@
 package handlers
 
 import (
+	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
-
-	"github.com/gin-gonic/gin"
 )
 
 // initTaskRoutes initializes all task-related routes
 func (h *Handler) initTaskRoutes(api *gin.RouterGroup) {
 	tasks := api.Group("/tasks")
 	{
-		tasks.GET("", h.getAllTasks)           // GET /api/v1/tasks
-		tasks.GET("/:id", h.getTaskByID)       // GET /api/v1/tasks/:id
-		tasks.POST("", h.createTask)           // POST /api/v1/tasks
-		tasks.PUT("/:id", h.updateTask)        // PUT /api/v1/tasks/:id
-		tasks.DELETE("/:id", h.deleteTask)     // DELETE /api/v1/tasks/:id
+		tasks.GET("", h.getAllTasks)                   // GET /api/v1/tasks
+		tasks.GET("/:id", h.getTaskByID)               // GET /api/v1/tasks/:id
+		tasks.POST("", h.createTask)                   // POST /api/v1/tasks
+		tasks.PUT("/:id", h.updateTask)                // PUT /api/v1/tasks/:id
+		tasks.DELETE("/:id", h.deleteTask)             // DELETE /api/v1/tasks/:id
 		tasks.PATCH("/:id/status", h.updateTaskStatus) // PATCH /api/v1/tasks/:id/status
 	}
-	
+
 	// User-specific task routes
-	userTasks := api.Group("/users/:userId/tasks")
+	userTasks := api.Group("/tasks/user/:userId")
 	{
-		userTasks.GET("", h.getUserTasks)      // GET /api/v1/users/:userId/tasks
+		userTasks.GET("", h.getUserTasks) // GET /api/v1/users/:userId/tasks
 	}
 }
 
@@ -38,7 +37,7 @@ func (h *Handler) getAllTasks(c *gin.Context) {
 // getTaskByID handles GET /api/v1/tasks/:id
 func (h *Handler) getTaskByID(c *gin.Context) {
 	taskID := c.Param("id")
-	
+
 	// Validate task ID
 	id, err := strconv.Atoi(taskID)
 	if err != nil {
@@ -47,7 +46,7 @@ func (h *Handler) getTaskByID(c *gin.Context) {
 		})
 		return
 	}
-	
+
 	// TODO: Implement get task by ID logic
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Get task by ID",
@@ -67,7 +66,7 @@ func (h *Handler) createTask(c *gin.Context) {
 // updateTask handles PUT /api/v1/tasks/:id
 func (h *Handler) updateTask(c *gin.Context) {
 	taskID := c.Param("id")
-	
+
 	// Validate task ID
 	id, err := strconv.Atoi(taskID)
 	if err != nil {
@@ -76,7 +75,7 @@ func (h *Handler) updateTask(c *gin.Context) {
 		})
 		return
 	}
-	
+
 	// TODO: Implement update task logic
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Task updated successfully",
@@ -87,7 +86,7 @@ func (h *Handler) updateTask(c *gin.Context) {
 // deleteTask handles DELETE /api/v1/tasks/:id
 func (h *Handler) deleteTask(c *gin.Context) {
 	taskID := c.Param("id")
-	
+
 	// Validate task ID
 	id, err := strconv.Atoi(taskID)
 	if err != nil {
@@ -96,7 +95,7 @@ func (h *Handler) deleteTask(c *gin.Context) {
 		})
 		return
 	}
-	
+
 	// TODO: Implement delete task logic
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Task deleted successfully",
@@ -107,7 +106,7 @@ func (h *Handler) deleteTask(c *gin.Context) {
 // updateTaskStatus handles PATCH /api/v1/tasks/:id/status
 func (h *Handler) updateTaskStatus(c *gin.Context) {
 	taskID := c.Param("id")
-	
+
 	// Validate task ID
 	id, err := strconv.Atoi(taskID)
 	if err != nil {
@@ -116,7 +115,7 @@ func (h *Handler) updateTaskStatus(c *gin.Context) {
 		})
 		return
 	}
-	
+
 	// TODO: Implement update task status logic
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Task status updated successfully",
@@ -127,7 +126,7 @@ func (h *Handler) updateTaskStatus(c *gin.Context) {
 // getUserTasks handles GET /api/v1/users/:userId/tasks
 func (h *Handler) getUserTasks(c *gin.Context) {
 	userID := c.Param("userId")
-	
+
 	// TODO: Implement get user tasks logic
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Get user tasks",
